@@ -1,0 +1,50 @@
+//the uniform function that generates the processing values
+
+static int unif (long seed[],int low, int high)
+{
+        long m = 2147483647, a=16807,b=127773,c=2836;
+	int k;
+	double val01;
+	k = (int)(seed[0]/b);
+        seed[0] = a*(seed[0]%b)-k*c;
+	if (seed[0]<0)
+	{
+		seed[0] =seed[0]+m;
+	}
+	val01 = (double)(seed[0]/(double)m);
+	return(low + (int)(val01*(high-low+1)));
+}
+
+//function that calls unif and creates the job matrix
+
+static void random_input(int a[][])
+
+{
+	int mat[][]=new int [21][MAXCOLS];
+        long seed[]=new long [1];
+        seed[0]=timeseed;
+	for(int j=0;j<mcs;j++)
+	{
+	  for(int i=0;i<jobs;i++)
+	  {
+	     mat[j][i]=unif(seed,1,99);
+	  }
+	}
+	for (int i=0;i<jobs;i++)
+	{
+		for (int j=0;j<mcs;j++)
+		{
+			a[i][j]=mat[j][i];//converting cols to rows
+		}
+	}
+}
+
+//within main, after random_input returns converting indices to start from 1 rather than 0
+
+for (int i=jobs;i>=1;i--)
+        {
+		for (int j=mcs;j>=1;j--)
+                {
+			a[i][j]=a[i-1][j-1];
+                }
+        }

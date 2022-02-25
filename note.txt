@@ -1,0 +1,14 @@
+                                        *********NEH Code Explanation*********
+
+
+A  -  1,2,3,4,5,.....,20
+A_sorted   -   rearranged serial no. for original non_sorted job matrix A: 4,7,2,11,20,....,18 (new seq. in non-inc. order)  (best_seq)
+               new serial no. for A_sorted: 0,1,2,3,4  (nu_seq)    (Meant just for calculation)
+
+                    For e.g. 4 in A was at 4th index which came at 1st position in A_sorted after sort so 
+                    if 4 is sent as part of partial seq. in makespan(A_sorted,part_seq) then it would NOT mean the row at 1st index 
+                    rather it would mean 5th index based on new index.
+
+
+Final seq: Based on A
+makespan(job_matrix, partial_seq)     partial_seq based on job_matrix

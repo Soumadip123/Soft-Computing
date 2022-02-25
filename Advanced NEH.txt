@@ -1,0 +1,10 @@
+Method 2
+
+1. Find the SEED sequence in non increasing order of makespan.
+2. Select first 4 jobs from SEED sequence and permute them to have 4! partial sequences.
+3. Select M (<=4!) best sequences.
+4. Set k = 5
+5. Insert kth job from SEED in each of the M sequences to get M*k number of partial sequences.
+6. Select M best sequences.
+7. Set k = k+1 and go to step 5 if k<=n
+8. Output best sequence and corresponding makespan
