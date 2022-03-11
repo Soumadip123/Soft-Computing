@@ -47,9 +47,9 @@ def makespan(M,S):     #To calculate and return makespan where M=matrix, S=seque
 
 
 a=[ [0]*21 for _ in range(501) ]
-jobs=500                                             #jobs,mcs & timeseed to be changed accordingly
-mcs=20
-timeseed = 28837162
+jobs=20                                             #jobs,mcs & timeseed to be changed accordingly
+mcs=10
+timeseed = 873136276
 random_input(a,jobs,mcs,timeseed)
 # for i in range(jobs,0,-1):
 #     for j in range(mcs,0,-1):

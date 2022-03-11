@@ -1,8 +1,5 @@
 # pandas is a software library written for the Python programming language for data manipulation and analysis
-import pandas as pd
-import numpy as np
-import random as rand
-import csv
+import random
 from itertools import permutations
 
 def unif(seed, low, high):
@@ -54,9 +51,9 @@ def makespan(M, S):  # To calculate and return makespan where M=matrix, S=sequen
 
 
 a = [[0]*21 for _ in range(501)]
-jobs = 500  # jobs,mcs & timeseed to be changed accordingly
-mcs = 20
-timeseed = 28837162
+jobs = 20  # jobs,mcs & timeseed to be changed accordingly
+mcs = 10
+timeseed = 2065119309
 random_input(a, jobs, mcs, timeseed)
 # for i in range(jobs,0,-1):
 #     for j in range(mcs,0,-1):
@@ -102,35 +99,11 @@ p=permutations(z)
 #for i in list(p):
 #   print(i)
 
-'''def perm():
-    n=1
-    for i in range(1,5):
-        for j in range(1,5):
-            if(j==i):
-                continue
-            for k in range(1,5):
-                if(k==i or k==j):
-                    continue
-                for l in range(1,5):
-                    if(l==i or l==j or l==k):
-                        continue
-                    permseqfour[n][1] = z[i]
-                    permseqfour[n][2] = z[j]
-                    permseqfour[n][3] = z[k]
-                    permseqfour[n][4] = z[l]
-                    n=n+1
-''' 
-#perm()                 
-#for i in range(1,25):
-#    for j in range(1,5):
-#       print(permseqfour[i][j],end=" ")#
-#    print("\n")
-
 
 j=0
 for i in list(p):
     seql[j].extend(i)
-    mks[j]=makespan(sorted_ml,i)
+    mks[j]=makespan(sorted_ml[:][0:-2],i)
     seql[j].append(mks[j])
     #print(mks[j])
     j=j+1
@@ -151,25 +124,6 @@ for i in range(10):
         original10[i][j]=sorted_ml[best10[i][j]][mcs+1]
 #print(original10)
 
-'''for _ in range(10):
-    for i in range(4, jobs):
-        mk_list = []
-        for j in range(0, i+1):                               # for e.g. 201, 021, 012
-           bs_copy = best10[_][:]
-           bs_copy.insert(j, i)  # inserting i at jth position
-           mk_list.append(makespan(nu_sorted, bs_copy))
-        min = mk_list[0]
-        ind = 0
-        for i in range(1, len(mk_list)):
-            if mk_list[i] < min:
-                min = mk_list[i]
-                ind = i  # best position
-        original10[_].insert(ind, sorted_ml[i][mcs+1])
-        best10[_].insert(ind, i)
-    print("Best Job Sequence obtained: ", original10[_])
-    print("Least makespan value:", min)
-'''
-
 m=10
 for _ in range(4, jobs):
     nu_seq = [[] for _ in range((_+1)*m)]   # to store the new job index 2D matrix
@@ -186,12 +140,16 @@ for _ in range(4, jobs):
             #mk_list[ind] = makespan(nu_sorted, bs_copy)
             org_seq[ind] = org_copy[:]                      # to store the 2d matrix of original job indices
             nu_seq[ind] = bs_copy[:]                        # to store the 2d matrix of new job indices
-            #print(org_seq)
-            #print(nu_seq)
-            #print(ind,"\n\n")
+
             org_seq[ind].append(makespan(nu_sorted, bs_copy))
             nu_seq[ind].append(makespan(nu_sorted, bs_copy))
-            ind=ind+1 
+            ind=ind+1
+            #print(org_seq)
+            #print("\n\n")
+            #print(nu_seq)
+            #print("\n\n")
+
+             
     sorted_org = sorted(org_seq, key=lambda x: x[-1]) # sorted 2d matrix after adding another job (original index)
     sorted_nu = sorted(nu_seq, key=lambda x: x[-1])   # sorted 2d matrix after adding another job (new index)
     
@@ -207,8 +165,10 @@ for _ in range(4, jobs):
     original10 = sorted_org[0:10][0:-1]  # best 10 seq is inserted(original index)'''
     #print(best10,"\n\n")
     #print(sorted_nu,"\n\n")  
-    
+  
 for a in range(0,m):
-    print("Best Job Sequence obtained: ", original10[a])
+    #print("Best Job Sequence obtained: ", sorted_org[a][:-1])
     print("Least Makespan = ",sorted_nu[a][-1])
 #print("Least makespan value:", min)
+
+
