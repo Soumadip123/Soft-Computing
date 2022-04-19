@@ -1,10 +1,8 @@
-import random
-import math
+list_of_num = [51, 52, 53, 54, 55, 56, 57, 58, 59]
+ll = [1,2,3]
+list_of_num[0:0] = ll
 
-org_seq = [[1,2,3,4],[1,2,4,3],[1,3,2,4],[1,3,4,2],[4,3,2,1]]
-##random_index2 = random.randint(math.ceil(len(org_seq)/2), len(org_seq)-1)
 
-#print(org_seq[random_index1])
-#print(org_seq[random_index2])
-
-print(org_seq[0][0:-1])
+#ne = list_of_num - reversed_list
+#print('List with reversed part')
+print(list_of_num)

@@ -47,31 +47,6 @@ def random_input(a, jobs, mcs, timeseed):
 #                        Makespan Calculation Function                                   #
 ##########################################################################################
 
-'''
-def makespan(M, S):  # To calculate and return makespan where M=matrix, S=sequence
-    # prev stores the time taken by previous job after each stage
-    prev = [0 for i in range(len(M[0]))]
-    add = 0  # add sums up time taken by a job at every stage
-    # print(S)
-    for job in S:  # job represents a job in the given sequence
-        L = []  # L stores cumulative time taken after each stage
-        for mac in range(0, len(M[0])):  # mac represents a machine
-            if mac == 0:  # For machine 1, time is added to previous job's time stamp at same stage
-                add = prev[0] + M[job][0]
-                L.append(add)
-            else:  # For remaining machines, it is checked whether the job's previous stage
-                # time or the previous job's same stage time is greater. The greater value
-                if add > prev[mac]:
-                    # is taken so that machine availability is guaranteed.
-                    add = add + M[job][mac]
-                else:
-                    add = prev[mac] + M[job][mac]
-                L.append(add)
-        prev = L[:]  # This job's L will become next job's prev
-    return add
-'''
-start_time = datetime.now()
-
 
 def makespan(M, S):
     delay_array = [0]*(mcs)
@@ -80,17 +55,18 @@ def makespan(M, S):
         y = 0
         for k in range(1, len(S)):
             y = y + M[S[k]][i-1] - M[S[k-1]][i]
-            # print(y)
+            #print(y)
             if(y > 0):
                 x = x + y
                 y = 0
         delay_array[i] = delay_array[i-1] + x
     x = 0
-    # print(delay_array)
+    #print(delay_array)
     for i in range(len(S)):
-        x = x + M[S[i]][mcs-1]
+        x = x + M[i][mcs-1]
     mkspn = delay_array[mcs-1] + x
     return mkspn
+
 
 ##########################################################################################
 #                     Jobs, Machines and Timeseed input                                  #
@@ -261,7 +237,7 @@ for _ in range(4, jobs):
             originalm[z][k] = sorted_org[z][k]
 
 
-# for a in range(0, m):
+#for a in range(0, m):
     #print("Best Job Sequence obtained: ", originalm[a])
 #    print("Least Makespan = ", sorted_nu[a][-1])
 
@@ -270,8 +246,3 @@ now = datetime.now()
 
 current_time = now.strftime("%H:%M:%S")
 print("Current Time =", current_time)
-
-end_time = datetime.now()
-time_diff = end_time - start_time
-exec_time = time_diff.total_seconds()*1000
-print("Execution Time =", exec_time)

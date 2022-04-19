@@ -13,7 +13,7 @@ def makespanNi(M, S):
     x=0
     print(delay_array)
     for i in range (j):
-        x = x + M[i][m-1]
+        x = x + M[S[i]][m-1]
     mkspn = delay_array[m-1] + x
     return mkspn
 

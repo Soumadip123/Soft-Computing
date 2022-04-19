@@ -26,7 +26,7 @@ def random_input(a, jobs, mcs, timeseed):
         for j in range(mcs):
             a[i][j] = mat[j][i]
 
-
+'''
 def makespan(M, S):  # To calculate and return makespan where M=matrix, S=sequence
     # prev stores the time taken by previous job after each stage
     prev = [0 for i in range(len(M[0]))]
@@ -48,6 +48,26 @@ def makespan(M, S):  # To calculate and return makespan where M=matrix, S=sequen
                 L.append(add)
         prev = L[:]  # This job's L will become next job's prev
     return add
+'''
+
+def makespan(M, S):
+    delay_array = [0]*(mcs)
+    for i in range(1, mcs):
+        x = M[S[0]][i-1]
+        y = 0
+        for k in range(1, len(S)):
+            y = y + M[S[k]][i-1] - M[S[k-1]][i]
+            #print(y)
+            if(y > 0):
+                x = x + y
+                y = 0
+        delay_array[i] = delay_array[i-1] + x
+    x = 0
+    #print(delay_array)
+    for i in range(len(S)):
+        x = x + M[i][mcs-1]
+    mkspn = delay_array[mcs-1] + x
+    return mkspn
 
 
 a = [[0]*21 for _ in range(501)]
@@ -103,7 +123,7 @@ p=permutations(z)
 j=0
 for i in list(p):
     seql[j].extend(i)
-    mks[j]=makespan(sorted_ml[:][0:-2],i)
+    mks[j]=makespan(sorted_ml[:][:-2],i)
     seql[j].append(mks[j])
     #print(mks[j])
     j=j+1
@@ -126,8 +146,10 @@ for i in range(10):
 
 m=10
 for _ in range(4, jobs):
+    
     nu_seq = [[] for _ in range((_+1)*m)]   # to store the new job index 2D matrix
     org_seq = [[] for _ in range((_+1)*m)]  # to store the original job index 2D matrix
+    
     #mk_list = [0]*500                       # to store makeaspan of each list at each step
     ind = 0
     for i in range(m):
